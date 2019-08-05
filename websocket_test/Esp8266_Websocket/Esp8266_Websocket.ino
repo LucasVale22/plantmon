@@ -11,8 +11,8 @@ String data= "";
 char path[] = "/";   //identifier of this device
 
 const char* ssid     = "cacau.dog";
-const char* password = "v@l3_s4nt05";
-char* host = "192.168.0.106";  //replace this ip address with the ip address of your Node.Js server
+const char* password = "XXXXXXXXXXXXX";
+char* host = "192.XXX.X.XXX";  //replace this ip address with the ip address of your Node.Js server
 const int espport= 3000;
   
 WebSocketClient webSocketClient;
