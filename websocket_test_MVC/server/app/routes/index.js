@@ -1,11 +1,13 @@
 module.exports = function(application){
-	application.get('/', function(req, res){
+
+
+	/*application.get('/', function(req, res){
 
 		res.format({
 
 			/*html: function(){
 				res.send('Bem vindo a sua app NodeJS!');
-			},*/
+			},
 
 			json: function(){
 				var retorno = {
@@ -15,10 +17,11 @@ module.exports = function(application){
 			}
 		});
 
-	});
+	});*/
 
 	application.post('/', function(req, res){
 		var dados = req.body;
+		console.log(dados);
 		res.send(dados);
 	});
 
