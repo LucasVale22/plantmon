@@ -11,18 +11,10 @@ require('dns').lookup(require('os').hostname(), function (err, add, fam) {
     console.log('addr: '+add);
 });
 
-
 /**********************websocket setup**************************************************************************************/
 //var expressWs = require('express-ws')(app,server);
 const WebSocket = require('ws');
 const s = new WebSocket.Server({ server });
-
-/*provavelmente isso ficará no controller encaminhado a um route correto*/
-/*implementar o uso da engine ejs, usando index (.ejs) em vez de index.html*/
-app.get('/', function(req, res) {
-    res.sendFile(path.join(__dirname + '/app/views/index.html'));
-});
-
 
 //*************************************************************************************************************************
 //***************************ws chat server********************************************************************************

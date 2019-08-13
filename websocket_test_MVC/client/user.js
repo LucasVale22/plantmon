@@ -1,3 +1,5 @@
+/*Precisamos encaixar esse cliente corretamente na aplicação, mas por enquanto, façamos tudo no server*/
+
 var http = require('http');
 //var address = require('../server/app');
 
@@ -28,9 +30,6 @@ var req = http.request(opcoes, function(res){
         console.log(corpo_response);
     });
 });
-
-
-//var sock=new WebSocket("ws://192.168.0.103:3000");
 
 req.write(string_json);
 req.end();

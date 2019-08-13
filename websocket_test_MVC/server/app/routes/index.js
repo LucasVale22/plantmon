@@ -1,5 +1,8 @@
 module.exports = function(application){
 
+	application.get('/', function(req, res){
+		application.app.controllers.index.index(application, req, res);
+	});
 
 	/*application.get('/', function(req, res){
 
@@ -17,12 +20,12 @@ module.exports = function(application){
 			}
 		});
 
-	});*/
+	});
 
 	application.post('/', function(req, res){
 		var dados = req.body;
 		console.log(dados);
 		res.send(dados);
-	});
+	});*/
 
 }
