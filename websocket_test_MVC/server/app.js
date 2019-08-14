@@ -1,46 +1,51 @@
 /*importando as configurações do servidor*/
 var app = require('./config/server');
-var http = require('http');
-var path = require('path');
 
 /*criando um servidor*/
-const server = http.createServer(app);//create a server
+const server = app.listen(3000, function(){
+    console.log('**---> SERVIDOR ONLINE <---**');
+});
 
 /*regastando o ip local do servidor node.js (este ip deve estar do lado do cliente)*/
 require('dns').lookup(require('os').hostname(), function (err, add, fam) {
     console.log('addr: '+add);
 });
 
-/**********************websocket setup**************************************************************************************/
-//var expressWs = require('express-ws')(app,server);
-const WebSocket = require('ws');
-const s = new WebSocket.Server({ server });
+/*tanto requisições http ou websockets agora são recebidas e interpetadas*/
+var io = require('socket.io').listen(server);
 
-//*************************************************************************************************************************
-//***************************ws chat server********************************************************************************
+/*Cria a variável global io através da função set*/ 
+app.set('io', io); 
 
-//app.ws('/echo', function(ws, req) {
-s.on('connection',function(ws,req){
+/*----------Cria conexão por WebSocket-----------*/ 
+/* A instância do objeto io vai buscar pelo evento connection chamado no lado do cliente */
+io.on('connection', function(socket){
+    
+    console.log("Usuário Conectou!");
 
-    /******* when server receives messsage from client trigger function with argument message *****/
-    ws.on('message',function(message){
-        console.log("Received: "+message);
-        s.clients.forEach(function(client){ //broadcast incoming message to all clients (s.clients)
-            if(client!=ws && client.readyState ){ //except to the same client (ws) that sent this message
-                client.send("broadcast: " +message);
+    socket.on('disconnect', function(){
+        console.log("Usuário Desconectou!");
+    });
+
+    socket.on('msgToServer', function(sensorData){
+        /*Disparo de evento de mensagem*/
+        socket.emit(
+            'msgToClient',
+            {
+                sensorName: sensorData.sensorName, 
+                measure: sensorData.measure
             }
-        });
-    // ws.send("From Server only to sender: "+ message); //send to client where message is from
+        );
+
+        socket.broadcast.emit(
+            'msgToClient',
+            {
+                sensorName: sensorData.sensorName, 
+                measure: sensorData.measure
+            }
+        );
+
     });
-    ws.on('close', function(){
-        console.log("lost one client");
-    });
-    //ws.send("new client connected");
-    console.log("new client connected");
+
 });
 
-
-/*parametrizando a porta de escuta*/
-server.listen(3000, function(){
-    console.log('**---> SERVIDOR ONLINE <---**');
-});

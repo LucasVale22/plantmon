@@ -1,31 +1,11 @@
 module.exports = function(application){
 
-	application.get('/', function(req, res){
-		application.app.controllers.index.index(application, req, res);
+	application.post('/index', function(req, res){ //rota recebe o chat via post, executando a propriedade do modulo chat iniciaChat
+		application.app.controllers.index.showSensorData(application, req, res)
 	});
 
-	/*application.get('/', function(req, res){
-
-		res.format({
-
-			/*html: function(){
-				res.send('Bem vindo a sua app NodeJS!');
-			},
-
-			json: function(){
-				var retorno = {
-					body: 'Bem vindo a sua app NodeJS BOLADAO!'
-				}
-				res.json(retorno);
-			}
-		});
-
+	application.get('/index', function(req, res){
+		application.app.controllers.index.showSensorData(application, req, res);
 	});
-
-	application.post('/', function(req, res){
-		var dados = req.body;
-		console.log(dados);
-		res.send(dados);
-	});*/
 
 }
