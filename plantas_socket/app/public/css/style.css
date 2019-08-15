@@ -1,6 +1,6 @@
 body {
-    background-color: #444;
-    background: url('../images/login-bg.jpg');  
+    background-color: #444 ;
+    background: url('../images/background.png'); 
 }
 
 .form-signin input[type="text"] {
@@ -79,22 +79,28 @@ img {
 	margin-top:-10px;
 }
 
-.troca{
+.display-sensor{
 	width:100%;
 	height:auto;
 	margin-bottom:15px;
 	padding:10px;
-	background:#D8F0FE;
+	background:rgb(161, 247, 161);
 }
 
-.troca h4{
+.display-sensor h4{
 	font-size:15px;
 	font-weight: bold;
 	color:#8B7777;
 }
 
-.troca p{
+.display-sensor p{
 	font-size:12px;
 	padding-left:15px;
 	color:#8B7777;
+}
+
+.bloco-sensor{
+    margin-top:70px;
+	margin-bottom: 70px;
+    border: 1px solid red;
 }
