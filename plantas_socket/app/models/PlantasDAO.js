@@ -37,6 +37,23 @@ PlantasDAO.prototype.iniciaHome = function(application, res, usuario, planta) {
     });
 } 
 
+PlantasDAO.prototype.atualizaMedidas = function(dadosDispositivo) {
+    this._connection.open(function(err, mongoclient){
+        mongoclient.collection("plantas", function(err, collection){
+
+            console.log(dadosDispositivo);
+            collection.update(
+                {luminosidadeLida : parseInt(dadosDispositivo.statusPlanta)},
+                {temperaturaLida : parseInt(dadosDispositivo.statusPlanta)},
+                {umidadeDoArLida : parseInt(dadosDispositivo.statusPlanta)},
+                {umidadeDoSoloLida : parseInt(dadosDispositivo.statusPlanta)}
+            );
+
+            mongoclient.close();
+        });
+    });
+}
+
 module.exports = function() {
     return PlantasDAO;
 }

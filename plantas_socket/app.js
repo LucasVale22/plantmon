@@ -23,10 +23,16 @@ io.on('connection', function(socket){ /* a instância do objeto io vai buscar pe
 		console.log('Usuário desconectou');
 	});
 
+	/*Disparo de evento: Servidor recebendo os dados emitidos pelo cliente*/
 	socket.on('msgParaServidor', function(dadosDispositivo){
-		/*disparo de evento de troca de medidas*/
 
+		
 		/*receber os dados e tentar colocar no banco de dados aqui*/
+		var connection = app.config.dbConnection;
+		
+		var PlantasDAO = new app.app.models.PlantasDAO(connection);
+
+		PlantasDAO.atualizaMedidas(dadosDispositivo);
 
 		socket.emit(
 			'msgParaCliente', 
