@@ -23,28 +23,31 @@ io.on('connection', function(socket){ /* a instância do objeto io vai buscar pe
 		console.log('Usuário desconectou');
 	});
 
-	socket.on('msgParaServidor', function(dadosSensor){
+	socket.on('msgParaServidor', function(dadosDispositivo){
 		/*disparo de evento de troca de medidas*/
+
+		/*receber os dados e tentar colocar no banco de dados aqui*/
+
 		socket.emit(
 			'msgParaCliente', 
-			{nomeSensor: dadosSensor.nomeSensor, medida: dadosSensor.medida}
+			{nomeDispositivo: dadosDispositivo.nomeDispositivo, statusPlanta: dadosDispositivo.statusPlanta}
 		);
 
 		socket.broadcast.emit(
 			'msgParaCliente', 
-			{nomeSensor: dadosSensor.nomeSensor, medida: dadosSensor.medida}
+			{nomeDispositivo: dadosDispositivo.nomeDispositivo, statusPlanta: dadosDispositivo.statusPlanta}
 		);
 
-		/*disparo de sensores*/
-		if(parseInt(dadosSensor.sensor_atualizado_nos_clientes) == 0){
+		/*disparo de Dispositivoes*/
+		if(parseInt(dadosDispositivo.dispositivo_atualizado_nos_clientes) == 0){
 			socket.emit(
 				'sensoresParaCliente', 
-				{nomeSensor: dadosSensor.nomeSensor}
+				{nomeDispositivo: dadosDispositivo.nomeDispositivo}
 			);
 
 			socket.broadcast.emit(
-				'sensoressParaCliente', 
-				{nomeSensor: dadosSensor.nomeSensor}
+				'sensoresParaCliente', 
+				{nomeDispositivo: dadosDispositivo.nomeDispositivo}
 			);
 		}
 	});

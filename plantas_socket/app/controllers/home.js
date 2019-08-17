@@ -11,13 +11,9 @@ module.exports.home = function (application, req, res) {
 	var connection = application.config.dbConnection;
 	var PlantasDAO = new application.app.models.PlantasDAO(connection);
 
-	PlantasDAO.iniciaHome(usuario, planta);
+	PlantasDAO.iniciaHome(application, res, usuario, planta);
 	
-	/*application.get('io').emit(
-		'msgParaCliente',
-		{nomeSensor: dadosSensor.nomeSensor, medida: ' está mandando medidas...'}
-		);
 
-	res.render('home', {dadosSensor: dadosSensor});*/
+	//res.render('home', {dadosSensor: "dadosSensor"});
 
 }
