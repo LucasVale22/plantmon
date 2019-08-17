@@ -6,7 +6,8 @@ module.exports.autenticar = function(application, req, res) {
 
 	var dadosFormulario = req.body;
 
-	req.assert('usuario', 'Campo do usuário está vazio.').notEmpty();
+	req.assert('usuario', 'Campo do usuário está vazio.').notEmpty()
+	req.assert('senha', 'Campo do senha está vazio.').notEmpty();
 	
 	var errosAutenticacao = req.validationErrors();
 
@@ -15,13 +16,9 @@ module.exports.autenticar = function(application, req, res) {
 		return;
 	}
 
-	/*var connection = application.config.dbConnection;
-	var UsuariosDAO = new application.app.models.UsuariosDAO(connection);*/
+	var connection = application.config.dbConnection;
+	var UsuariosDAO = new application.app.models.UsuariosDAO(connection);
 
-	console.log(dadosFormulario.usuario + ' entrou!');
-
-	res.send(dadosFormulario);
-
-	res.redirect('/home');
+	UsuariosDAO.autenticar(dadosFormulario, req, res);
 
 }

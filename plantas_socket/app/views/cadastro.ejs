@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 
-		<title>Monitoramento de Plantas</title>
+		<title>Cadastro de Usuário</title>
 		
 		<!-- bootstrap - link cdn -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
@@ -20,27 +20,27 @@
                     <div class="panel panel-default">
                     	<div class="panel-heading">                                
                             <div class="row-fluid user-row">
-                                <img src="images/cactus-login.png" class="img-responsive" alt="Monitoramento de Plantas"/>
+                                <img src="images/lemon-cadastro.png" class="img-responsive" alt="Monitoramento de Plantas"/>
                             </div>
                         </div>
                         <div class="panel-body">
-                            <form accept-charset="UTF-8" role="form" class="form-signin" action="/autenticar" method="post" >
+                            <form accept-charset="UTF-8" role="form" class="form-signin" action="/cadastrar" method="post" >
                                 <fieldset>
                                     <label class="panel-login">
                                         <div class="login_result"></div>
                                     </label>
                                     <label>
-                                        <span><h2>Sad Plants</h2></span>
+                                        <span><h2>Cadastro de Usuário</h2></span>
+                                        <span><h5>Insira algumas informações abaixo (é rapidinho xD):</h5></span>
                                     </label>
-                                    <input class="form-control" placeholder="Usuario" id="usuario" name="usuario" type="text">
+                                    <input class="form-control" placeholder="Digite seu nome de usuário" id="usuario" name="usuario" type="text">
                                     <br>
-                                    <input class="form-control" placeholder="Senha" id="senha" name="senha" type="password">
+                                    <input class="form-control" placeholder="Digite sua senha" id="senha" name="senha" type="password">
                                     <br></br>
-                                    <input class="btn btn-lg btn-success btn-block" type="submit" id="entrar" value="Entrar »">
+                                    <input class="btn btn-lg btn-success btn-block" type="submit" id="cadastrar" value="Cadastrar »">
                                 </fieldset>
                             </form>
                             <br>
-                            <h4>Primeiro Acesso?<a href="/cadastro"> Cadastre-se agora!</a></h4>
                         </div>
                     </div>
 
