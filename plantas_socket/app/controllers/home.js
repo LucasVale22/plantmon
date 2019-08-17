@@ -1,7 +1,17 @@
-module.exports.exibeRelatorio = function (application, req, res) {
+module.exports.home = function (application, req, res) {
 
-	var dadosUsuario = req.body;
-	console.log(dadosUsuario.usuario);
+	if(req.session.autorizado !== true) {
+		res.send('Usuário precisa fazer login!');
+		return;
+	}
+
+	var usuario = req.session.usuario;
+	var planta = req.session.planta;
+
+	var connection = application.config.dbConnection;
+	var PlantasDAO = new application.app.models.PlantasDAO(connection);
+
+	PlantasDAO.iniciaHome(usuario, planta);
 	
 	/*application.get('io').emit(
 		'msgParaCliente',
@@ -9,6 +19,5 @@ module.exports.exibeRelatorio = function (application, req, res) {
 		);
 
 	res.render('home', {dadosSensor: dadosSensor});*/
-	res.render('home');
 
 }

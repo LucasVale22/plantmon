@@ -23,6 +23,7 @@ UsuariosDAO.prototype.autenticar = function(usuario, req, res){
 				if(result[0] != undefined){
 					req.session.autorizado = true;
 					req.session.usuario = result[0].usuario;
+					req.session.planta = result[0].planta;
 				}
 				if(req.session.autorizado) {
 					res.redirect('home');

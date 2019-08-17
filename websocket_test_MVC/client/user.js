@@ -4,7 +4,7 @@ var http = require('http');
 //var address = require('../server/app');
 
 var opcoes = {
-    hostname: '192.168.0.103',
+    hostname: 'xxx.xxx.xxx.xxx',
     port: 3000,
     path: '/',
     method: 'get',

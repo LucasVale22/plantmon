@@ -10,6 +10,8 @@ module.exports.cadastrar = function(application, req, res){
     req.assert('usuario', 'Nome de usuário deve conter no máximo 10 caracteres.').len(0, 10);
     req.assert('senha', 'Senha de usuário não pode ser vazio!').notEmpty();
     req.assert('senha', 'Senha de usuário conter no máximo 4 caracteres!').len(0, 4);
+    req.assert('planta', 'Nome/espécie da planta não pode ser vazio(a)!').notEmpty();
+    req.assert('planta', 'Nome/espécie da planta no máximo 15 caracteres!').len(0, 15);
 
     var errosCadastro = req.validationErrors();
 
