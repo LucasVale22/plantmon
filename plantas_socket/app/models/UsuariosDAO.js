@@ -8,9 +8,22 @@ UsuariosDAO.prototype.cadastrarUsuario = function(usuario){
 
 			collection.insert(usuario);
 
-			mongoclient.close();
-
 		});
+
+		mongoclient.collection("plantas", function(err, collection){
+
+			collection.insert({
+				usuario : usuario.usuario,
+				planta : usuario.planta,
+				luminosidadeLida : 0,
+				temperaturaLida : 0,
+				umidadeDoArLida : 0,
+				umidadeDoSoloLida : 0
+			});
+
+			mongoclient.close();
+		});
+
 	});
 }
 

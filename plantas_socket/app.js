@@ -26,36 +26,32 @@ io.on('connection', function(socket){ /* a instância do objeto io vai buscar pe
 	/*Disparo de evento: Servidor recebendo os dados emitidos pelo cliente*/
 	socket.on('msgParaServidor', function(dadosDispositivo){
 
-		
 		/*receber os dados e tentar colocar no banco de dados aqui*/
+	
 		var connection = app.config.dbConnection;
 		
 		var PlantasDAO = new app.app.models.PlantasDAO(connection);
 
-		PlantasDAO.atualizaMedidas(dadosDispositivo);
+		PlantasDAO.atualizarMedidas(dadosDispositivo);
 
 		socket.emit(
 			'msgParaCliente', 
-			{nomeDispositivo: dadosDispositivo.nomeDispositivo, statusPlanta: dadosDispositivo.statusPlanta}
+			{
+				nomeUsuario : dadosDispositivo.nomeUsuario,
+				nomeDispositivo: dadosDispositivo.nomeDispositivo, 
+				statusPlanta: dadosDispositivo.statusPlanta
+			}
 		);
 
 		socket.broadcast.emit(
 			'msgParaCliente', 
-			{nomeDispositivo: dadosDispositivo.nomeDispositivo, statusPlanta: dadosDispositivo.statusPlanta}
+			{
+				nomeUsuario : dadosDispositivo.nomeUsuario,
+				nomeDispositivo: dadosDispositivo.nomeDispositivo, 
+				statusPlanta: dadosDispositivo.statusPlanta
+			}
 		);
 
-		/*disparo de Dispositivoes*/
-		if(parseInt(dadosDispositivo.dispositivo_atualizado_nos_clientes) == 0){
-			socket.emit(
-				'sensoresParaCliente', 
-				{nomeDispositivo: dadosDispositivo.nomeDispositivo}
-			);
-
-			socket.broadcast.emit(
-				'sensoresParaCliente', 
-				{nomeDispositivo: dadosDispositivo.nomeDispositivo}
-			);
-		}
 	});
 }); 
 

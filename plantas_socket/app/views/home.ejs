@@ -1,4 +1,4 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="pt-br">
 	<head>
 		<meta charset="UTF-8">
@@ -17,6 +17,7 @@
 		<script type="text/javascript">
 		
 			$(document).ready(function(){
+
 				$("#exibe_relatorio").click(function(){
 					$("#relatorio").show();
 					$("#dispositivos").hide();
@@ -62,6 +63,9 @@
 						<li>
 							<a href="#" id="exibe_dispositivos">Dispositivos</a>
 						</li>
+						<li>
+							<span>Olá, <%=nomeUsuario%>!</span>
+						</li>
 					</ul>
 				</div>
 			</div>
@@ -72,28 +76,12 @@
 			
 			<div class="row relatorio" id="relatorio">
 
-				<div class="col-md-3">
-					<div id="luminosidade"></div>
-				</div>
-
-				<div class="col-md-3" >
-					<div id="temperatura"></div>	
-				</div>
-
-				<div class="col-md-3">
-						<div id="umidade_ar"></div>
-					</div>
-	
-					<div class="col-md-3">
-						<div id="umidade_solo"></div>
-					</div>
-
 			</div>
 
 			<div class="row relatorio" id="dispositivos">
 
 				<div class="col-md-3">
-					<div id="dispositivo"></div>
+					<div id="dispositivo"><%=nomeDispositivo%></div>
 				</div>
 
 			</div>
@@ -102,19 +90,12 @@
 		
 		<nav class="navbar navbar-default navbar-fixed-bottom" role="navigation">
 			<div class="container">
-				<div class="panel-body campo-status-planta">
-					
+				<div class="panel-body">
 						<div class="col-md-12">
-							<div class="input-group">
-								<input type="text" class="form-control" placeholder="Status da Planta" id="statusPlanta">
-								<input type="hidden" value="<%=nomeDispositivo%>" id="nomeDispositivo">
-								<input type="hidden" value="0" id="dispositivo_atualizado_nos_clientes">
-								<span class="input-group-btn">
-									<button class="btn btn-default" type="button" id="enviar_status_planta">></button>
-								</span>
-							</div>
+							
+							<button id="enviar_status_planta">Atualizar</button>
+
 						</div>
-					
 				</div>
 			</div>
 		</nav>		
@@ -123,78 +104,39 @@
 		
 		<script src="/socket.io/socket.io.js"></script> <!--tudo que é necessário para que do lado cliente seja possível emitir e escutar mensagens e enviar eventos para o servidor também-->
 		<script>
-			var socket = io('http://xxx.xxx.xxx:3000');
+			var socket = io('http://192.168.0.103:3000');
 
 			/*Aqui o cliente manda dados através do socket.emit (é isso que devemos adaptar para o nodemcu)*/
 
 			$('#enviar_status_planta').click( function(){
 
+				var statusPlanta = Math.floor(Math.random() * 101);
+				statusPlanta = statusPlanta.toString();
+
 				socket.emit(
 					'msgParaServidor',
 					{
-						nomeDispositivo: $('#nomeDispositivo').val(), 
-						statusPlanta: $('#statusPlanta').val(),
-						dispositivo_atualizado_nos_clientes: $('#dispositivo_atualizado_nos_clientes').val()
+						nomeUsuario : '<%=nomeUsuario%>',
+						nomeDispositivo: '<%=nomeDispositivo%>', 
+						statusPlanta: statusPlanta,
 					}
 				);
 
-				$('#statusPlanta').val('')
-				$('#dispositivo_atualizado_nos_clientes').val(1);
+				$.ajax({
+					url: '/relatorio',
+					method: "get",
+					success: function(data) {
+						
+						$('#relatorio').html(data);
+					},
+					error: function(err) {
+						alert('ERRO');
+					}
+				});
 
 			});
+			
 
-			socket.on('msgParaCliente', function(dadosDispositivo){
-				var htmlLuminosidade = '';
-				var htmlTemperatura = '';
-				var htmlUmidadeAr = '';
-				var htmlUmidadeSolo = '';
-
-				var htmlDispositivo = '';
-
-				htmlDispositivo += '<div class="display-sensor">';
-						htmlDispositivo += '<h4>' + dadosDispositivo.nomeDispositivo + '</h4>';
-						htmlDispositivo += '<p>' + dadosDispositivo.statusPlanta + '</p>';
-				htmlDispositivo += '</div>';
-
-				htmlLuminosidade += '<div class="display-sensor">';
-						htmlLuminosidade += '<h4>' + 'Luminosidade' + '</h4>';
-						htmlLuminosidade += '<p><%=dadosSensoresIniciais.luminosidadeLida%></p>';
-				htmlLuminosidade += '</div>';
-
-				htmlTemperatura += '<div class="display-sensor">';
-						htmlTemperatura += '<h4>' + 'Temperatura' + '</h4>';
-						htmlTemperatura += '<p><%=dadosSensoresIniciais.temperaturaLida%></p>';
-				htmlTemperatura += '</div>';
-
-				htmlUmidadeAr += '<div class="display-sensor">';
-						htmlUmidadeAr += '<h4>' + 'Umidade do Ar' + '</h4>';
-						htmlUmidadeAr += '<p><%=dadosSensoresIniciais.umidadeDoArLida%></p>';
-				htmlUmidadeAr += '</div>';
-
-				htmlUmidadeSolo += '<div class="display-sensor">';
-						htmlUmidadeSolo += '<h4>' + 'Umidade do Solo' + '</h4>';
-						htmlUmidadeSolo += '<p><%=dadosSensoresIniciais.umidadeDoSoloLida%></p>';
-				htmlUmidadeSolo += '</div>';
-
-				$('#luminosidade').append(htmlLuminosidade);
-				$('#temperatura').append(htmlTemperatura);
-				$('#umidade_ar').append(htmlUmidadeAr);
-				$('#umidade_solo').append(htmlUmidadeSolo);
-
-				window.scrollTo(0, document.body.scrollHeight);
-	
-			});
-
-			socket.on('msgParaCliente', function(dadosDispositivo){
-				var html = '';
-
-				html += '<span class="sensor">';
-					html += dadosDispositivo.nomeDispositivo;
-				html += '</span>';
-
-				$('#dispositivo').append(html);
-	
-			});
 		</script> <!--tentativa de conexão pelo lado do client -->
 
 	</body>
