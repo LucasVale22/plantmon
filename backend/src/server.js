@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-mongoose.connect('mongodb+srv://plantmon:plantmon@plantmon-tuoa0.mongodb.net/plantmon?retryWrites=true&w=majority', {
+mongoose.connect('mongodb+srv://plantmon:plan*********************', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useFindAndModify: false

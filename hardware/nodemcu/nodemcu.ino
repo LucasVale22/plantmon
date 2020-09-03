@@ -8,10 +8,10 @@ SoftwareSerial mySerial(D7,D8);
 
 // ############# VARIABLES ############### //
 
-const char* SSID = "cacau.dog"; // rede wifi
-const char* PASSWORD = "v@l3_s4nt05"; // senha da rede wifi
+const char* SSID = "nome_da_rede"; // rede wifi
+const char* PASSWORD = "*********"; // senha da rede wifi
 
-String BASE_URL = "http://192.168.0.105:3333/";
+String BASE_URL = "http://XXX.XXX.XXX.XXX:XXXX/";
 
 const String nodemcu_id = "n0d3mcu02";
 const String nodemcu_name = "NodeMCU_2";

@@ -28,9 +28,9 @@
 /* ############################################################################################################## */
 
 /* ###################################### DEFINICOES DE REDE #################################################### */
-const char* SSID = "cacau.dog";                 // rede wi-fi
-const char* PASSWORD = "v@l3_s4nt05";           // senha da rede wi-fi
-String BASE_URL = "http://192.168.0.106:3333/"; // endereco do servidor 
+const char* SSID = "nome_da_rede";                 // rede wi-fi
+const char* PASSWORD = "************";           // senha da rede wi-fi
+String BASE_URL = "http://XXX.XXX.XXX.XXX:XXXX/"; // endereco do servidor 
 /* ############################################################################################################## */
 
 /* ######################################## DEFINICOES DO DISPOSITIVO ########################################### */
